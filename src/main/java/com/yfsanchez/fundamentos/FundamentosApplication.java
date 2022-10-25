@@ -75,6 +75,7 @@ public class FundamentosApplication implements CommandLineRunner {
 
 	}
 	private void findWithMethodFindRepository(){
-		LOGGER.info("Usuario find : " + userRepository.findByUserEmail("user03@g.com"));
+		LOGGER.info("Usuario find : " + userRepository.findByUserEmail("user03@g.com").
+				orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
 	}
 }
