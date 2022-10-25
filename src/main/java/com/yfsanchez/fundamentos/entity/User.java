@@ -87,4 +87,10 @@ public class User {
                 ", posts=" + posts +
                 '}';
     }
+
+    public User(String name, String email, LocalDate birthDate) {
+        this.name = name;
+        this.email = email;
+        this.birthDate = birthDate;
+    }
 }
