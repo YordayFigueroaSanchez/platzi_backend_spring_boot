@@ -50,6 +50,7 @@ public class FundamentosApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 //		ejemplos01();
 		saveUserToDataBase();
+		findWithMethodFindRepository();
 	}
 
 	private void ejemplos01(){
@@ -72,5 +73,8 @@ public class FundamentosApplication implements CommandLineRunner {
 		List<User> listUser = Arrays.asList(user01,user02,user03,user04,user05,user06);
 		listUser.stream().forEach(userRepository::save);
 
+	}
+	private void findWithMethodFindRepository(){
+		LOGGER.info("Usuario find : " + userRepository.findByUserEmail("user03@g.com"));
 	}
 }
