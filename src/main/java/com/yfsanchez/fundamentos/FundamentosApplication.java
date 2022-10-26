@@ -68,7 +68,7 @@ public class FundamentosApplication implements CommandLineRunner {
 		User user02 = new User("user02","user02@g.com", LocalDate.of(2022,2,25));
 		User user03 = new User("user03","user03@g.com", LocalDate.of(2022,11,26));
 		User user04 = new User("tat04","user04@g.com", LocalDate.of(2022,12,27));
-		User user05 = new User("user05","user05@g.com", LocalDate.of(2022,6,28));
+		User user05 = new User("user02","user05@g.com", LocalDate.of(2022,6,28));
 		User user06 = new User("user06","user06@g.com", LocalDate.of(2022,8,29));
 
 		List<User> listUser = Arrays.asList(user01,user02,user03,user04,user05,user06);
@@ -82,5 +82,9 @@ public class FundamentosApplication implements CommandLineRunner {
 		userRepository.findAndSort("user", Sort.by("id").descending())
 				.stream()
 				.forEach(user -> LOGGER.info("mensaje : " + user));
+
+		userRepository.findByName("user02")
+				.stream()
+				.forEach(user -> LOGGER.info("usuario : " + user));
 	}
 }
