@@ -90,8 +90,12 @@ public class FundamentosApplication implements CommandLineRunner {
 //		LOGGER.info("findByNameAndEmail" + userRepository.findByNameAndEmail("tat04","user04@g.com")
 //				.orElseThrow(()-> new RuntimeException("test...test")));
 
-		userRepository.findByNameLike("%user%")
+//		userRepository.findByNameLike("%user%")
+//				.stream()
+//				.forEach(user -> LOGGER.info("findByNameLike : " + user));
+
+		userRepository.findByNameOrEmail("user02", null)
 				.stream()
-				.forEach(user -> LOGGER.info("findByNameLike : " + user));
+				.forEach(user -> LOGGER.info("findByNameOrEmail : " + user));
 	}
 }
