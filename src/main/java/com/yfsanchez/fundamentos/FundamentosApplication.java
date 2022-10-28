@@ -102,8 +102,12 @@ public class FundamentosApplication implements CommandLineRunner {
 //				.stream()
 //				.forEach(user -> LOGGER.info("findByBirthDateBetween : " + user));
 
-		userRepository.findByNameLikeOrderByIdDesc("%user%")
+//		userRepository.findByNameLikeOrderByIdDesc("%user%")
+//				.stream()
+//				.forEach(user -> LOGGER.info("findByNameLikeOrderByIdDesc : " + user));
+
+		userRepository.findByNameContainingOrderByIdDesc("user")
 				.stream()
-				.forEach(user -> LOGGER.info("findByBirthDateBetween : " + user));
+				.forEach(user -> LOGGER.info("findByNameContainOrderByIdDesc : " + user));
 	}
 }
