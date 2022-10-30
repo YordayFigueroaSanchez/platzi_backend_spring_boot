@@ -106,8 +106,12 @@ public class FundamentosApplication implements CommandLineRunner {
 //				.stream()
 //				.forEach(user -> LOGGER.info("findByNameLikeOrderByIdDesc : " + user));
 
-		userRepository.findByNameContainingOrderByIdDesc("user")
-				.stream()
-				.forEach(user -> LOGGER.info("findByNameContainOrderByIdDesc : " + user));
+//		userRepository.findByNameContainingOrderByIdDesc("user")
+//				.stream()
+//				.forEach(user -> LOGGER.info("findByNameContainOrderByIdDesc : " + user));
+
+		LOGGER.info("Usuario find by getAllByBirthDateAndEmail: " + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2022,1,24),"user01@g.com").
+				orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
+
 	}
 }
