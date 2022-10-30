@@ -126,12 +126,16 @@ public class FundamentosApplication implements CommandLineRunner {
 		User user02 = new User("usu02","auser02@g.com", LocalDate.of(2022,2,25));
 		User user03 = new User("usu03","auser03@g.com", LocalDate.of(2022,3,26));
 		User user04 = new User("usu04","auser04@g.com", LocalDate.of(2022,4,27));
-		User user05 = new User("usu05","auser05@g.com", LocalDate.of(2022,6,28));
+		User user05 = new User("usu05","auser04@g.com", LocalDate.of(2022,6,28));
 		User user06 = new User("usu06","auser06@g.com", LocalDate.of(2022,8,29));
 
 		List<User> users = Arrays.asList(user01,user02,user03,user04,user05,user06);
 
-		userService.saveTransactional(users);
+		try {
+			userService.saveTransactional(users);
+		} catch (Exception exception){
+			LOGGER.error("error al guardar : " + exception);
+		}
 
 		userService.getAll().stream()
 				.forEach(user -> {LOGGER.info("Usuario listar :" + user);});
