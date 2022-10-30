@@ -7,6 +7,7 @@ import com.yfsanchez.fundamentos.component.ComponentDependency;
 import com.yfsanchez.fundamentos.entity.User;
 import com.yfsanchez.fundamentos.pojo.UserPojo;
 import com.yfsanchez.fundamentos.repository.UserRepository;
+import com.yfsanchez.fundamentos.service.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,17 +31,20 @@ public class FundamentosApplication implements CommandLineRunner {
 	private MyBeanWithProperties myBeanWithProperties;
 	private UserPojo userPojo;
 	private UserRepository userRepository;
+	private UserService userService;
 
 	public FundamentosApplication(@Qualifier("componentImplTwo") ComponentDependency componentDependency, MyBean myBean, MyBeanWithDependency myBeanWithDependency,
 								  MyBeanWithProperties myBeanWithProperties,
 								  UserPojo userPojo,
-								  UserRepository userRepository){
+								  UserRepository userRepository,
+								  UserService userService){
 		this.componentDependency = componentDependency;
 		this.myBean = myBean;
 		this.myBeanWithDependency = myBeanWithDependency;
 		this.myBeanWithProperties = myBeanWithProperties;
 		this.userPojo = userPojo;
 		this.userRepository = userRepository;
+		this.userService = userService;
 	}
 
 	public static void main(String[] args) {
@@ -52,6 +56,7 @@ public class FundamentosApplication implements CommandLineRunner {
 //		ejemplos01();
 		saveUserToDataBase();
 		findWithMethodFindRepository();
+		saveWithTransactional();
 	}
 
 	private void ejemplos01(){
@@ -113,5 +118,22 @@ public class FundamentosApplication implements CommandLineRunner {
 		LOGGER.info("Usuario find by getAllByBirthDateAndEmail: " + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2022,1,24),"user01@g.com").
 				orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
 
+	}
+
+	private void saveWithTransactional(){
+
+		User user01 = new User("usu01","auser01@g.com", LocalDate.of(2022,1,24));
+		User user02 = new User("usu02","auser02@g.com", LocalDate.of(2022,2,25));
+		User user03 = new User("usu03","auser03@g.com", LocalDate.of(2022,3,26));
+		User user04 = new User("usu04","auser04@g.com", LocalDate.of(2022,4,27));
+		User user05 = new User("usu05","auser05@g.com", LocalDate.of(2022,6,28));
+		User user06 = new User("usu06","auser06@g.com", LocalDate.of(2022,8,29));
+
+		List<User> users = Arrays.asList(user01,user02,user03,user04,user05,user06);
+
+		userService.saveTransactional(users);
+
+		userService.getAll().stream()
+				.forEach(user -> {LOGGER.info("Usuario listar :" + user);});
 	}
 }
